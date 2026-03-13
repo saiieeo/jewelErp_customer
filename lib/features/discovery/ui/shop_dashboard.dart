@@ -19,7 +19,7 @@ class _ShopDashboardState extends State<ShopDashboard> {
   int _currentIndex = 0;
   bool _showLiveStock = true; // Toggle between Live Stock and Custom Design
 
-  List<Map<String, dynamic>> _wishlist = [];
+  final List<Map<String, dynamic>> _wishlist = [];
 
   // 1. Live Stock Data
   final List<Map<String, dynamic>> _liveProducts = [
@@ -89,7 +89,7 @@ class _ShopDashboardState extends State<ShopDashboard> {
       // canPop decides if the app should actually go back to the previous screen.
       // We only allow it to go back to the Mall if we are ALREADY on the Home tab (index 0).
       canPop: _currentIndex == 0, 
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, result) {
         // If didPop is true, it means we were on index 0 and it already went back to the Mall.
         if (didPop) return;
 
