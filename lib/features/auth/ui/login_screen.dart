@@ -132,8 +132,8 @@ class _LoginScreenState extends State<LoginScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(color: const Color(0xFFD4AF37).withOpacity(0.2)),
-        color: const Color(0xFF16213E).withOpacity(0.5),
+        border: Border.all(color: const Color(0xFFD4AF37).withAlpha((0.2 * 255).round())),
+        color: const Color(0xFF16213E).withAlpha((0.5 * 255).round()),
       ),
       child: SvgPicture.asset('assets/logo.svg', width: 35, height: 35),
     );
@@ -171,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
             hintText: hint,
-            prefixIcon: Icon(icon, color: const Color(0xFFD4AF37).withOpacity(0.7), size: 20),
+            prefixIcon: Icon(icon, color: const Color(0xFFD4AF37).withAlpha((0.7 * 255).round()), size: 20),
             suffixIcon: isPassword 
               ? IconButton(
                   icon: Icon(
@@ -182,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: onToggleVisibility,
                 )
               : null,
-            fillColor: const Color(0xFF16213E).withOpacity(0.4),
+            fillColor: const Color(0xFF16213E).withAlpha((0.4 * 255).round()),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
               borderSide: const BorderSide(color: Color(0xFF16213E)),
@@ -201,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFFD4AF37).withOpacity(0.15),
+            color: const Color(0xFFD4AF37).withAlpha((0.15 * 255).round()),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
