@@ -162,12 +162,12 @@ class ProfileScreen extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [const Color(0xFF16213E), const Color(0xFF1A1A2E).withOpacity(0.8)],
+          colors: [const Color(0xFF16213E), const Color(0xFF1A1A2E).withAlpha((0.8 * 255).round())],
         ),
-        border: Border.all(color: const Color(0xFFD4AF37).withOpacity(0.3)),
+        border: Border.all(color: const Color(0xFFD4AF37).withAlpha((0.3 * 255).round())),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFFD4AF37).withOpacity(0.05),
+            color: const Color(0xFFD4AF37).withAlpha((0.05 * 255).round()),
             blurRadius: 20,
             spreadRadius: 2,
           ),
@@ -183,9 +183,9 @@ class ProfileScreen extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFD4AF37).withOpacity(0.1),
+                    color: const Color(0xFFD4AF37).withAlpha((0.1 * 255).round()),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: const Color(0xFFD4AF37).withOpacity(0.5)),
+                    border: Border.all(color: const Color(0xFFD4AF37).withAlpha((0.5 * 255).round())),
                   ),
                   child: Text(
                     "ELITE MEMBER", 
@@ -230,16 +230,16 @@ class ProfileScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFFD4AF37).withOpacity(0.05),
+        color: const Color(0xFFD4AF37).withAlpha((0.05 * 255).round()),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFD4AF37).withOpacity(0.4)),
+        border: Border.all(color: const Color(0xFFD4AF37).withAlpha((0.4 * 255).round())),
       ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: const Color(0xFFD4AF37).withOpacity(0.2),
+              color: const Color(0xFFD4AF37).withAlpha((0.2 * 255).round()),
               shape: BoxShape.circle,
             ),
             child: const Icon(Icons.security_outlined, color: Color(0xFFD4AF37)),
@@ -282,9 +282,9 @@ class ProfileScreen extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: const Color(0xFF16213E).withOpacity(0.4),
+        color: const Color(0xFF16213E).withAlpha((0.4 * 255).round()),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.02)),
+        border: Border.all(color: Colors.white.withAlpha((0.02 * 255).round())),
       ),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),

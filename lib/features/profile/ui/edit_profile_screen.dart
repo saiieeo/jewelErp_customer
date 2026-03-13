@@ -71,7 +71,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> with SingleTicker
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
           color: const Color(0xFF16213E),
-          border: Border(top: BorderSide(color: Colors.white.withOpacity(0.05))),
+          border: Border(top: BorderSide(color: Colors.white.withAlpha((0.05 * 255).round()))),
         ),
         child: ElevatedButton(
           onPressed: () {
@@ -159,7 +159,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> with SingleTicker
         children: [
           Container(
             padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: const Color(0xFFD4AF37).withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
+            decoration: BoxDecoration(color: const Color(0xFFD4AF37).withAlpha((0.1 * 255).round()), borderRadius: BorderRadius.circular(12)),
             child: Row(
               children: [
                 const Icon(Icons.info_outline, color: Color(0xFFD4AF37), size: 16),
@@ -224,8 +224,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> with SingleTicker
           style: const TextStyle(color: Colors.white, fontSize: 14),
           decoration: InputDecoration(
             hintText: hint,
-            prefixIcon: Icon(icon, color: const Color(0xFFD4AF37).withOpacity(0.5), size: 18),
-            fillColor: const Color(0xFF16213E).withOpacity(0.4),
+            prefixIcon: Icon(icon, color: const Color(0xFFD4AF37).withAlpha((0.5 * 255).round()), size: 18),
+            fillColor: const Color(0xFF16213E).withAlpha((0.4 * 255).round()),
             filled: true,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
@@ -245,10 +245,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> with SingleTicker
     return Container(
       height: 100,
       decoration: BoxDecoration(
-        color: const Color(0xFF16213E).withOpacity(0.2),
+        color: const Color(0xFF16213E).withAlpha((0.2 * 255).round()),
         borderRadius: BorderRadius.circular(12),
         // A standard trick for a dashed-looking border in pure flutter without extra packages
-        border: Border.all(color: const Color(0xFFD4AF37).withOpacity(0.4), style: BorderStyle.solid), 
+        border: Border.all(color: const Color(0xFFD4AF37).withAlpha((0.4 * 255).round()), style: BorderStyle.solid), 
       ),
       child: Center(
         child: Column(

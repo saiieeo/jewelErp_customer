@@ -79,9 +79,9 @@ class ShopDiscoveryScreen extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 24),
       decoration: BoxDecoration(
-        color: const Color(0xFF16213E).withOpacity(0.5),
+        color: const Color(0xFF16213E).withAlpha((0.5 * 255).round()),
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: const Color(0xFFD4AF37).withOpacity(0.1)),
+        border: Border.all(color: const Color(0xFFD4AF37).withAlpha((0.1 * 255).round())),
       ),
       child: Column(
         children: [
@@ -92,7 +92,7 @@ class ShopDiscoveryScreen extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
               gradient: LinearGradient(
-                colors: [const Color(0xFF1A1A2E), const Color(0xFFD4AF37).withOpacity(0.2)],
+                colors: [const Color(0xFF1A1A2E), const Color(0xFFD4AF37).withAlpha((0.2 * 255).round())],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),

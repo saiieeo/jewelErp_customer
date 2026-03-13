@@ -150,8 +150,8 @@ class _SignupScreenState extends State<SignupScreen> {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(color: const Color(0xFFD4AF37).withOpacity(0.2)),
-        color: const Color(0xFF16213E).withOpacity(0.5),
+        border: Border.all(color: const Color(0xFFD4AF37).withAlpha((0.2 * 255).round())),
+        color: const Color(0xFF16213E).withAlpha((0.5 * 255).round()),
       ),
       child: SvgPicture.asset('assets/logo.svg', width: 28, height: 28),
     );
@@ -182,7 +182,7 @@ class _SignupScreenState extends State<SignupScreen> {
           style: const TextStyle(color: Colors.white, fontSize: 15),
           decoration: InputDecoration(
             hintText: hint,
-            prefixIcon: Icon(icon, color: const Color(0xFFD4AF37).withOpacity(0.6), size: 18),
+            prefixIcon: Icon(icon, color: const Color(0xFFD4AF37).withAlpha((0.6 * 255).round()), size: 18),
             suffixIcon: isPassword 
               ? IconButton(
                   icon: Icon(
@@ -193,7 +193,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   onPressed: onToggleVisibility,
                 )
               : null,
-            fillColor: const Color(0xFF16213E).withOpacity(0.4),
+            fillColor: const Color(0xFF16213E).withAlpha((0.4 * 255).round()),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
               borderSide: const BorderSide(color: Color(0xFF16213E)),
@@ -211,7 +211,7 @@ class _SignupScreenState extends State<SignupScreen> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
-          BoxShadow(color: const Color(0xFFD4AF37).withOpacity(0.15), blurRadius: 20, offset: const Offset(0, 8)),
+          BoxShadow(color: const Color(0xFFD4AF37).withAlpha((0.15 * 255).round()), blurRadius: 20, offset: const Offset(0, 8)),
         ],
       ),
       child: ElevatedButton(

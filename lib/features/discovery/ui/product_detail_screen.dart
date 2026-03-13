@@ -87,9 +87,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFD4AF37).withOpacity(0.1),
+                      color: const Color(0xFFD4AF37).withAlpha((0.1 * 255).round()),
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: const Color(0xFFD4AF37).withOpacity(0.5)),
+                      border: Border.all(color: const Color(0xFFD4AF37).withAlpha((0.5 * 255).round())),
                     ),
                     child: Text(
                       "100% HALLMARKED", 
@@ -137,7 +137,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
           color: const Color(0xFF16213E),
-          border: Border(top: BorderSide(color: Colors.white.withOpacity(0.05))),
+          border: Border(top: BorderSide(color: Colors.white.withAlpha((0.05 * 255).round()))),
         ),
         child: Row(
           children: [
@@ -155,7 +155,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 ),
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  side: BorderSide(color: const Color(0xFFD4AF37).withOpacity(0.5)),
+                  side: BorderSide(color: const Color(0xFFD4AF37).withAlpha((0.5 * 255).round())),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
               ),
@@ -189,9 +189,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: const Color(0xFF16213E).withOpacity(0.5),
+          color: const Color(0xFF16213E).withAlpha((0.5 * 255).round()),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.white.withOpacity(0.05)),
+          border: Border.all(color: Colors.white.withAlpha((0.05 * 255).round())),
         ),
         child: Row(
           children: [

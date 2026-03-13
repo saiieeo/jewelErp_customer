@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:math';
 
 class OldGoldScreen extends StatefulWidget {
   const OldGoldScreen({super.key});
@@ -54,7 +53,7 @@ class _OldGoldScreenState extends State<OldGoldScreen> {
                       gradient: RadialGradient(
                         center: const Alignment(0, 0.5),
                         radius: 1.0,
-                        colors: [const Color(0xFFD4AF37).withOpacity(0.15), const Color(0xFF0F0F1A)],
+                        colors: [const Color(0xFFD4AF37).withAlpha((0.15 * 255).round()), const Color(0xFF0F0F1A)],
                       ),
                     ),
                   ),
@@ -89,9 +88,9 @@ class _OldGoldScreenState extends State<OldGoldScreen> {
                   Container(
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF16213E).withOpacity(0.5),
+                      color: const Color(0xFF16213E).withAlpha((0.5 * 255).round()),
                       borderRadius: BorderRadius.circular(24),
-                      border: Border.all(color: Colors.white.withOpacity(0.05)),
+                      border: Border.all(color: Colors.white.withAlpha((0.05 * 255).round())),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,7 +126,7 @@ class _OldGoldScreenState extends State<OldGoldScreen> {
                             activeTrackColor: const Color(0xFFD4AF37),
                             inactiveTrackColor: const Color(0xFF0F0F1A),
                             thumbColor: const Color(0xFFD4AF37),
-                            overlayColor: const Color(0xFFD4AF37).withOpacity(0.2),
+                            overlayColor: const Color(0xFFD4AF37).withAlpha((0.2 * 255).round()),
                             trackHeight: 4.0,
                           ),
                           child: Slider(
@@ -155,14 +154,14 @@ class _OldGoldScreenState extends State<OldGoldScreen> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(24),
                       gradient: LinearGradient(
-                        colors: [const Color(0xFF1A1A2E), const Color(0xFF16213E).withOpacity(0.8)],
+                        colors: [const Color(0xFF1A1A2E), const Color(0xFF16213E).withAlpha((0.8 * 255).round())],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
-                      border: Border.all(color: const Color(0xFFD4AF37).withOpacity(0.3)),
+                      border: Border.all(color: const Color(0xFFD4AF37).withAlpha((0.3 * 255).round())),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFFD4AF37).withOpacity(0.05),
+                          color: const Color(0xFFD4AF37).withAlpha((0.05 * 255).round()),
                           blurRadius: 20,
                           spreadRadius: 2,
                         ),
@@ -243,7 +242,7 @@ class _OldGoldScreenState extends State<OldGoldScreen> {
         decoration: BoxDecoration(
           color: isSelected ? const Color(0xFFD4AF37) : const Color(0xFF0F0F1A),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: isSelected ? const Color(0xFFD4AF37) : Colors.white.withOpacity(0.1)),
+          border: Border.all(color: isSelected ? const Color(0xFFD4AF37) : Colors.white.withAlpha((0.1 * 255).round())),
         ),
         child: Column(
           children: [
@@ -258,7 +257,7 @@ class _OldGoldScreenState extends State<OldGoldScreen> {
             Text(
               karat == 24 ? "99.9%" : karat == 22 ? "91.6%" : "75.0%",
               style: GoogleFonts.inter(
-                color: isSelected ? const Color(0xFF0F0F1A).withOpacity(0.7) : const Color(0xFFA0A0B8),
+                color: isSelected ? const Color(0xFF0F0F1A).withAlpha((0.7 * 255).round()) : const Color(0xFFA0A0B8),
                 fontSize: 10,
               ),
             ),

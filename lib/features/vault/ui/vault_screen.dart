@@ -50,7 +50,7 @@ class VaultScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: const Color(0xFF16213E),
                         shape: BoxShape.circle,
-                        border: Border.all(color: const Color(0xFFD4AF37).withOpacity(0.3)),
+                        border: Border.all(color: const Color(0xFFD4AF37).withAlpha((0.3 * 255).round())),
                       ),
                       child: const Icon(Icons.lock_outline, color: Color(0xFFD4AF37)),
                     )
@@ -177,7 +177,7 @@ class VaultScreen extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFFD4AF37).withOpacity(0.2),
+            color: const Color(0xFFD4AF37).withAlpha((0.2 * 255).round()),
             blurRadius: 30,
             offset: const Offset(0, 10),
           ),
@@ -193,7 +193,7 @@ class VaultScreen extends StatelessWidget {
               Text(
                 "TOTAL ACCUMULATED VALUE",
                 style: GoogleFonts.inter(
-                  color: const Color(0xFF0F0F1A).withOpacity(0.7),
+                  color: const Color(0xFF0F0F1A).withAlpha((0.7 * 255).round()),
                   fontSize: 10,
                   fontWeight: FontWeight.w800,
                   letterSpacing: 1.5,
@@ -214,7 +214,7 @@ class VaultScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              color: const Color(0xFF0F0F1A).withOpacity(0.15),
+              color: const Color(0xFF0F0F1A).withAlpha((0.15 * 255).round()),
               borderRadius: BorderRadius.circular(16),
             ),
             child: Row(
@@ -240,9 +240,9 @@ class VaultScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFF16213E).withOpacity(0.5),
+        color: const Color(0xFF16213E).withAlpha((0.5 * 255).round()),
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: const Color(0xFFD4AF37).withOpacity(0.2)),
+        border: Border.all(color: const Color(0xFFD4AF37).withAlpha((0.2 * 255).round())),
       ),
       child: Column(
         children: [
@@ -283,7 +283,7 @@ class VaultScreen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          Container(height: 1, color: const Color(0xFFD4AF37).withOpacity(0.1)),
+          Container(height: 1, color: const Color(0xFFD4AF37).withAlpha((0.1 * 255).round())),
           const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -320,9 +320,13 @@ class VaultScreen extends StatelessWidget {
       width: 260,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: isPremium ? const Color(0xFF1A1A2E) : const Color(0xFF16213E).withOpacity(0.5),
+        color: isPremium ? const Color(0xFF1A1A2E) : const Color(0xFF16213E).withAlpha((0.5 * 255).round()),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: isPremium ? const Color(0xFFD4AF37).withOpacity(0.5) : Colors.white.withOpacity(0.05)),
+        border: Border.all(
+          color: isPremium
+              ? const Color(0xFFD4AF37).withAlpha((0.5 * 255).round())
+              : Colors.white.withAlpha((0.05 * 255).round()),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -366,7 +370,7 @@ class VaultScreen extends StatelessWidget {
                 debugPrint("Joining $title");
               },
               style: OutlinedButton.styleFrom(
-                side: BorderSide(color: const Color(0xFFD4AF37).withOpacity(isPremium ? 1.0 : 0.5)),
+                side: BorderSide(color: const Color(0xFFD4AF37).withAlpha((((isPremium ? 1.0 : 0.5)) * 255).round())),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 padding: const EdgeInsets.symmetric(vertical: 10),
               ),
@@ -386,16 +390,18 @@ class VaultScreen extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF16213E).withOpacity(0.3),
+        color: const Color(0xFF16213E).withAlpha((0.3 * 255).round()),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.02)),
+        border: Border.all(color: Colors.white.withAlpha((0.02 * 255).round())),
       ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: isCredit ? Colors.green.withOpacity(0.1) : Colors.redAccent.withOpacity(0.1),
+              color: isCredit
+                  ? Colors.green.withAlpha((0.1 * 255).round())
+                  : Colors.redAccent.withAlpha((0.1 * 255).round()),
               shape: BoxShape.circle,
             ),
             child: Icon(

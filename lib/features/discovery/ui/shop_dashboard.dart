@@ -115,7 +115,7 @@ class _ShopDashboardState extends State<ShopDashboard> {
         // --- PREMIUM BOTTOM NAVIGATION BAR ---
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            border: Border(top: BorderSide(color: const Color(0xFFD4AF37).withOpacity(0.1))),
+            border: Border(top: BorderSide(color: const Color(0xFFD4AF37).withAlpha((0.1 * 255).round()))),
           ),
           child: BottomNavigationBar(
             currentIndex: _currentIndex,
@@ -191,7 +191,7 @@ class _ShopDashboardState extends State<ShopDashboard> {
                     prefixIcon: const Icon(Icons.search, color: Color(0xFFA0A0B8)),
                     suffixIcon: const Icon(Icons.tune, color: Color(0xFFD4AF37)), // Filter icon
                     filled: true,
-                    fillColor: const Color(0xFF16213E).withOpacity(0.5),
+                    fillColor: const Color(0xFF16213E).withAlpha((0.5 * 255).round()),
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
                   ),
                 ),
@@ -219,7 +219,7 @@ class _ShopDashboardState extends State<ShopDashboard> {
                   scrollDirection: Axis.horizontal,
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   children: [
-                    _buildPromoBanner("Diwali Special", "Up to 20% off on making charges", Colors.deepPurple.withOpacity(0.5)),
+                    _buildPromoBanner("Diwali Special", "Up to 20% off on making charges", Colors.deepPurple.withAlpha((0.5 * 255).round())),
                     const SizedBox(width: 15),
                     _buildPromoBanner("New Arrivals", "Explore the Royal Antique Collection", const Color(0xFF16213E)),
                   ],
@@ -257,7 +257,7 @@ class _ShopDashboardState extends State<ShopDashboard> {
                 child: Container(
                   height: 45,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF16213E).withOpacity(0.5),
+                    color: const Color(0xFF16213E).withAlpha((0.5 * 255).round()),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Row(
@@ -310,7 +310,7 @@ class _ShopDashboardState extends State<ShopDashboard> {
       decoration: BoxDecoration(
         color: bgColor,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFD4AF37).withOpacity(0.2)),
+        border: Border.all(color: const Color(0xFFD4AF37).withAlpha((0.2 * 255).round())),
         image: const DecorationImage(
           image: AssetImage('assets/banner_bg.png'), // Optional: Add a faint pattern image later
           fit: BoxFit.cover,
@@ -346,7 +346,7 @@ class _ShopDashboardState extends State<ShopDashboard> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: const Color(0xFF16213E),
-              border: Border.all(color: const Color(0xFFD4AF37).withOpacity(0.3)),
+              border: Border.all(color: const Color(0xFFD4AF37).withAlpha((0.3 * 255).round())),
             ),
             child: Icon(icon, color: const Color(0xFFD4AF37), size: 24),
           ),
@@ -401,9 +401,9 @@ class _ShopDashboardState extends State<ShopDashboard> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFF16213E).withOpacity(0.3),
+          color: const Color(0xFF16213E).withAlpha((0.3 * 255).round()),
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: const Color(0xFFD4AF37).withOpacity(0.1)),
+          border: Border.all(color: const Color(0xFFD4AF37).withAlpha((0.1 * 255).round())),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

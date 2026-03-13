@@ -43,7 +43,7 @@ class WishlistScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.favorite_border, size: 80, color: const Color(0xFF16213E).withOpacity(0.8)),
+          Icon(Icons.favorite_border, size: 80, color: const Color(0xFF16213E).withAlpha((0.8 * 255).round())),
           const SizedBox(height: 20),
           Text(
             "Your wishlist is empty",
@@ -63,9 +63,9 @@ class WishlistScreen extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: const Color(0xFF16213E).withOpacity(0.4),
+        color: const Color(0xFF16213E).withAlpha((0.4 * 255).round()),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFD4AF37).withOpacity(0.1)),
+        border: Border.all(color: const Color(0xFFD4AF37).withAlpha((0.1 * 255).round())),
       ),
       child: Row(
         children: [
