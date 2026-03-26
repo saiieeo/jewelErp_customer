@@ -1,11 +1,169 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'order_detail_screen.dart'; 
+import '../../profile/data/profile_service.dart'; 
 
-class VaultScreen extends StatelessWidget {
+class VaultScreen extends StatefulWidget {
   const VaultScreen({super.key});
 
   @override
+  State<VaultScreen> createState() => _VaultScreenState();
+}
+
+class _VaultScreenState extends State<VaultScreen> {
+  String _firstName = ""; 
+  bool _isProcessingPayment = false; // Used for the payment loading state
+  
+  @override
+  void initState() {
+    super.initState();
+    _loadUserName();
+  }
+
+  Future<void> _loadUserName() async {
+    try {
+      final data = await ProfileService().getProfile();
+      if (mounted) {
+        setState(() {
+          _firstName = data['firstName'] ?? "My";
+        });
+      }
+    } catch (e) {
+      if (mounted) setState(() => _firstName = "My");
+    }
+  }
+
+  // --- NEW: Payment Gateway Integration Placeholder ---
+  void _showPaymentBottomSheet(BuildContext context, String schemeName, String amountStr) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return Container(
+              padding: const EdgeInsets.all(24),
+              decoration: const BoxDecoration(
+                color: Color(0xFF0F0F1A),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+                border: Border(top: BorderSide(color: Color(0xFFD4AF37), width: 2)),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(child: Container(width: 40, height: 4, decoration: BoxDecoration(color: const Color(0xFF6C6C80), borderRadius: BorderRadius.circular(2)))),
+                  const SizedBox(height: 24),
+                  
+                  Text("PAYMENT SUMMARY", style: GoogleFonts.inter(color: const Color(0xFFD4AF37), fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 2)),
+                  const SizedBox(height: 16),
+                  
+                  // Summary Card
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF16213E).withAlpha((0.5 * 255).round()),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: Colors.white.withAlpha((0.05 * 255).round())),
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Scheme", style: GoogleFonts.inter(color: const Color(0xFFA0A0B8), fontSize: 13)),
+                            Text(schemeName, style: GoogleFonts.playfairDisplay(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                        const Padding(padding: EdgeInsets.symmetric(vertical: 12), child: Divider(color: Color(0xFF0F0F1A))),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Installment", style: GoogleFonts.inter(color: const Color(0xFFA0A0B8), fontSize: 13)),
+                            Text("8 of 11", style: GoogleFonts.inter(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600)),
+                          ],
+                        ),
+                        const Padding(padding: EdgeInsets.symmetric(vertical: 12), child: Divider(color: Color(0xFF0F0F1A))),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Total Payable", style: GoogleFonts.inter(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold)),
+                            Text(amountStr, style: GoogleFonts.inter(color: const Color(0xFFD4AF37), fontSize: 18, fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  
+                  const SizedBox(height: 32),
+                  
+                  // Pay Button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: _isProcessingPayment 
+                        ? null 
+                        : () async {
+                            setModalState(() => _isProcessingPayment = true);
+                            
+                            // ==========================================
+                            // 🚨 TODO: PAYMENT GATEWAY GOES HERE 🚨
+                            // Once backend is ready, you will call:
+                            // 1. ApiService().createOrder(schemeId)
+                            // 2. Razorpay.open(options)
+                            // ==========================================
+                            
+                            // Simulating network delay for now
+                            await Future.delayed(const Duration(seconds: 2));
+                            
+                            if (context.mounted) {
+                              setModalState(() => _isProcessingPayment = false);
+                              Navigator.pop(context); // Close sheet
+                              
+                              // Show Success
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Row(
+                                    children: [
+                                      const Icon(Icons.check_circle, color: Colors.white),
+                                      const SizedBox(width: 10),
+                                      Text("Payment of $amountStr Successful!", style: GoogleFonts.inter(fontWeight: FontWeight.bold)),
+                                    ],
+                                  ),
+                                  backgroundColor: Colors.green,
+                                  behavior: SnackBarBehavior.floating,
+                                )
+                              );
+                            }
+                          },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFD4AF37),
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        disabledBackgroundColor: const Color(0xFFD4AF37).withAlpha((0.5 * 255).round()),
+                      ),
+                      child: _isProcessingPayment 
+                        ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Color(0xFF0F0F1A), strokeWidth: 2))
+                        : Text("PROCEED TO PAY", style: GoogleFonts.inter(color: const Color(0xFF0F0F1A), fontWeight: FontWeight.bold, letterSpacing: 1)),
+                    ),
+                  ),
+                  const SizedBox(height: 16), // Bottom padding
+                ],
+              ),
+            );
+          }
+        );
+      }
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final String vaultTitle = _firstName.toLowerCase() == "my" || _firstName.isEmpty 
+        ? "My Vault" 
+        : "$_firstName's Vault";
+
     return Scaffold(
       backgroundColor: const Color(0xFF0F0F1A),
       body: CustomScrollView(
@@ -26,7 +184,7 @@ class VaultScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "saees Vault", 
+                          vaultTitle, 
                           style: GoogleFonts.playfairDisplay(
                             fontSize: 28, 
                             fontWeight: FontWeight.bold, 
@@ -89,9 +247,9 @@ class VaultScreen extends StatelessWidget {
 
                   const SizedBox(height: 40),
 
-                  // --- 4. NEW: Explore Available Schemes ---
+                  // --- 4. Previous Orders ---
                   Text(
-                    "EXPLORE NEW SCHEMES",
+                    "PREVIOUS ORDERS",
                     style: GoogleFonts.inter(
                       color: const Color(0xFFA0A0B8),
                       fontSize: 12,
@@ -101,58 +259,32 @@ class VaultScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   
-                  // Horizontal scrolling list of available schemes
-                  SizedBox(
-                    height: 180,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      clipBehavior: Clip.none,
-                      children: [
-                        _buildAvailableSchemeCard(
-                          title: "Golden Harvest",
-                          duration: "11 Months",
-                          benefit: "100% Off on Making Charges",
-                          isPremium: true,
-                        ),
-                        const SizedBox(width: 16),
-                        _buildAvailableSchemeCard(
-                          title: "Swarna Akshay",
-                          duration: "6 Months",
-                          benefit: "Flat 50% Off on Wastage",
-                          isPremium: false,
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 40),
-
-                  // --- 5. Recent Invoices / Ledger ---
-                  Text(
-                    "VAULT LEDGER",
-                    style: GoogleFonts.inter(
-                      color: const Color(0xFFA0A0B8),
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.5,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  
-                  _buildLedgerItem(
-                    title: "Scheme Installment",
-                    date: "Mar 10, 2026",
-                    amount: "₹ 10,000",
-                    isCredit: true,
-                  ),
-                  _buildLedgerItem(
-                    title: "Bridal Set Purchase",
+                  _buildOrderCard(
+                    context,
+                    orderId: "#ORD-88392",
                     date: "Feb 14, 2026",
+                    items: "22K Gold Bridal Set, Diamond Ring",
                     amount: "₹ 3,45,000",
-                    isCredit: false,
+                    status: "DELIVERED",
+                  ),
+                  _buildOrderCard(
+                    context,
+                    orderId: "#ORD-88210",
+                    date: "Nov 02, 2025",
+                    items: "18K Gold Chain (12g)",
+                    amount: "₹ 85,000",
+                    status: "DELIVERED",
+                  ),
+                  _buildOrderCard(
+                    context,
+                    orderId: "#ORD-89004",
+                    date: "Mar 18, 2026",
+                    items: "Custom Gold Bangle",
+                    amount: "₹ 1,12,000",
+                    status: "PROCESSING",
                   ),
                   
-                  const SizedBox(height: 100), // Padding for Bottom Nav
+                  const SizedBox(height: 100), 
                 ],
               ),
             ),
@@ -237,6 +369,10 @@ class VaultScreen extends StatelessWidget {
   }
 
   Widget _buildSchemeCard() {
+    // Mock data extracted to variables so we can pass them to the payment sheet
+    const String schemeName = "Swarna Samruddhi";
+    const String monthlyAmount = "₹ 10,000";
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -274,9 +410,9 @@ class VaultScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Swarna Samruddhi", style: GoogleFonts.playfairDisplay(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                    Text(schemeName, style: GoogleFonts.playfairDisplay(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 4),
-                    Text("₹ 10,000 / month", style: GoogleFonts.inter(color: const Color(0xFFA0A0B8), fontSize: 12)),
+                    Text("$monthlyAmount / month", style: GoogleFonts.inter(color: const Color(0xFFA0A0B8), fontSize: 12)),
                   ],
                 ),
               ),
@@ -297,7 +433,8 @@ class VaultScreen extends StatelessWidget {
                 ],
               ),
               ElevatedButton(
-                onPressed: () {},
+                // 🚨 WIRED TO THE NEW PAYMENT SHEET 🚨
+                onPressed: () => _showPaymentBottomSheet(context, schemeName, monthlyAmount),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFD4AF37),
                   foregroundColor: const Color(0xFF0F0F1A),
@@ -314,122 +451,71 @@ class VaultScreen extends StatelessWidget {
     );
   }
 
-  // NEW: Available Scheme Card UI
-  Widget _buildAvailableSchemeCard({required String title, required String duration, required String benefit, required bool isPremium}) {
-    return Container(
-      width: 260,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: isPremium ? const Color(0xFF1A1A2E) : const Color(0xFF16213E).withAlpha((0.5 * 255).round()),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: isPremium
-              ? const Color(0xFFD4AF37).withAlpha((0.5 * 255).round())
-              : Colors.white.withAlpha((0.05 * 255).round()),
+  // --- Tappable Order Card ---
+  Widget _buildOrderCard(BuildContext context, {required String orderId, required String date, required String items, required String amount, required String status}) {
+    bool isDelivered = status.toUpperCase() == "DELIVERED";
+    
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OrderDetailScreen(
+              orderId: orderId,
+              date: date,
+              items: items,
+              amount: amount,
+              status: status,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: const Color(0xFF16213E).withAlpha((0.4 * 255).round()),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Colors.white.withAlpha((0.05 * 255).round())),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0F0F1A),
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Text(duration, style: GoogleFonts.inter(color: const Color(0xFFD4AF37), fontSize: 10, fontWeight: FontWeight.bold)),
-              ),
-              if (isPremium) const Icon(Icons.star_rounded, color: Color(0xFFD4AF37), size: 18),
-            ],
-          ),
-          const Spacer(),
-          Text(title, style: GoogleFonts.playfairDisplay(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 6),
-          Row(
-            children: [
-              const Icon(Icons.check_circle, color: Colors.greenAccent, size: 14),
-              const SizedBox(width: 6),
-              Expanded(
-                child: Text(
-                  benefit,
-                  style: GoogleFonts.inter(color: const Color(0xFFA0A0B8), fontSize: 11),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          SizedBox(
-            width: double.infinity,
-            child: OutlinedButton(
-              onPressed: () {
-                debugPrint("Joining $title");
-              },
-              style: OutlinedButton.styleFrom(
-                side: BorderSide(color: const Color(0xFFD4AF37).withAlpha((((isPremium ? 1.0 : 0.5)) * 255).round())),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                padding: const EdgeInsets.symmetric(vertical: 10),
-              ),
-              child: Text(
-                "JOIN NOW", 
-                style: GoogleFonts.inter(color: isPremium ? const Color(0xFFD4AF37) : Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildLedgerItem({required String title, required String date, required String amount, required bool isCredit}) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: const Color(0xFF16213E).withAlpha((0.3 * 255).round()),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withAlpha((0.02 * 255).round())),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: isCredit
-                  ? Colors.green.withAlpha((0.1 * 255).round())
-                  : Colors.redAccent.withAlpha((0.1 * 255).round()),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              isCredit ? Icons.arrow_downward_rounded : Icons.arrow_upward_rounded,
-              color: isCredit ? Colors.greenAccent : Colors.redAccent,
-              size: 20,
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(title, style: GoogleFonts.inter(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600)),
-                const SizedBox(height: 4),
-                Text(date, style: GoogleFonts.inter(color: const Color(0xFFA0A0B8), fontSize: 11)),
+                Text(orderId, style: GoogleFonts.inter(color: const Color(0xFFD4AF37), fontSize: 12, fontWeight: FontWeight.bold)),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: isDelivered ? Colors.greenAccent.withAlpha((0.1 * 255).round()) : const Color(0xFFD4AF37).withAlpha((0.1 * 255).round()),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text(
+                    status, 
+                    style: GoogleFonts.inter(
+                      color: isDelivered ? Colors.greenAccent : const Color(0xFFD4AF37), 
+                      fontSize: 9, 
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ),
               ],
             ),
-          ),
-          Text(
-            "${isCredit ? '+' : '-'} $amount",
-            style: GoogleFonts.inter(
-              color: isCredit ? Colors.greenAccent : Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
+            const SizedBox(height: 12),
+            Text(items, style: GoogleFonts.playfairDisplay(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 12),
+            Container(height: 1, color: Colors.white.withAlpha((0.05 * 255).round())),
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(date, style: GoogleFonts.inter(color: const Color(0xFFA0A0B8), fontSize: 12)),
+                Text(amount, style: GoogleFonts.inter(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold)),
+              ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

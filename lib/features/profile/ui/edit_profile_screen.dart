@@ -11,6 +11,7 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  
 
   @override
   void initState() {
